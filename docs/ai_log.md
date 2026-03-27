@@ -49,4 +49,11 @@
 2026-03-27T00:00:00Z | A-0044 | Opened task T-2026-03-27-greenward-vercel-adapter to make the project Vercel deployable/detectable.
 2026-03-27T00:00:00Z | A-0045 | Added Vercel-compatible serverless routes (`api/health`, `api/plan`) plus shared runtime adapter and route rewrites.
 2026-03-27T00:00:00Z | A-0046 | Verified build/tests and endpoint parity for `/api/*` and legacy routes; task T-2026-03-27-greenward-vercel-adapter marked COMPLETED.
+2026-03-27T00:00:00Z | A-0047 | Opened task T-2026-03-27-input-reactivity-and-product-discovery for stronger input-feedback behavior and in-app product discovery guidance.
+2026-03-27T00:00:00Z | A-0048 | Implemented reactive recalculation for key planner inputs with explicit updating status feedback.
+2026-03-27T00:00:00Z | A-0049 | Added in-app product discovery section and line-item product search links.
+2026-03-27T00:00:00Z | A-0050 | Task T-2026-03-27-input-reactivity-and-product-discovery marked COMPLETED after build/test verification.
+2026-03-27T00:00:00Z | A-0051 | Opened task T-2026-03-27-store-link-availability-ui to replace generic product search with explicit retailer availability links.
+2026-03-27T00:00:00Z | A-0052 | Added explicit "Available at" retailer links per plan line item using source-based store mapping.
+2026-03-27T00:00:00Z | A-0053 | Task T-2026-03-27-store-link-availability-ui marked COMPLETED after build/test verification.
 

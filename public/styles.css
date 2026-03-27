@@ -74,6 +74,42 @@ h1 {
   padding: 24px;
 }
 
+.intro-panel {
+  padding: 18px 22px;
+  margin-bottom: 18px;
+}
+
+.intro-copy {
+  margin: 8px 0 0;
+  color: var(--muted);
+  font: 500 0.98rem/1.5 "Avenir Next", "Segoe UI", sans-serif;
+}
+
+.buy-grid {
+  margin-top: 14px;
+  display: grid;
+  gap: 12px;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.buy-grid article {
+  border: 1px solid rgba(47, 109, 72, 0.14);
+  border-radius: 16px;
+  padding: 12px;
+  background: rgba(255, 250, 242, 0.78);
+}
+
+.buy-grid h3 {
+  margin: 0;
+  font-size: 1rem;
+}
+
+.buy-grid p {
+  margin: 8px 0 0;
+  color: var(--muted);
+  font: 500 0.9rem/1.4 "Avenir Next", "Segoe UI", sans-serif;
+}
+
 .plan-form {
   display: grid;
   gap: 18px;
@@ -264,6 +300,32 @@ button {
   color: var(--muted);
 }
 
+.line-availability {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin: 2px 0 10px;
+}
+
+.availability-label {
+  color: var(--muted);
+  font: 700 0.72rem/1 "Avenir Next", "Segoe UI", sans-serif;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+}
+
+.availability-link {
+  text-decoration: none;
+  background: rgba(47, 109, 72, 0.1);
+  border: 1px solid rgba(47, 109, 72, 0.2);
+  border-radius: 999px;
+  color: var(--accent);
+  padding: 6px 10px;
+  font: 700 0.75rem/1 "Avenir Next", "Segoe UI", sans-serif;
+  letter-spacing: 0.04em;
+}
+
 .line-stats {
   display: flex;
   flex-wrap: wrap;
@@ -285,7 +347,8 @@ button {
 @media (max-width: 760px) {
   .two-up,
   .three-up,
-  .green-up-row {
+  .green-up-row,
+  .buy-grid {
     grid-template-columns: 1fr;
   }
 

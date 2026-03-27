@@ -15,6 +15,10 @@ const slider = form.elements.green_up;
 const turfTypeSelect = form.elements.turf_type;
 const zipInput = form.elements.zip_code;
 const planTierSelect = form.elements.plan_tier;
+const sqFtInput = form.elements.sq_ft;
+const rainInput = form.elements.rain_forecast;
+const tempInput = form.elements.temp;
+const windowInput = form.elements.forecast_window_hours;
 const sliderOutput = document.getElementById("green-up-output");
 const template = document.getElementById("line-item-template");
 
@@ -108,9 +112,43 @@ function scheduleSubmit() {
     clearTimeout(submitTimer);
   }
 
+  setStatus("Updating plan...");
+
   submitTimer = window.setTimeout(() => {
     form.requestSubmit();
   }, 120);
+}
+
+function buildProductSearchUrl(product, source) {
+  const retailerHint = {
+    W1: "Costco Sams Club",
+    R1: "Lowes Home Depot",
+    S1: "DoMyOwn"
+  };
+  const query = `${product} ${retailerHint[source] ?? ""}`.trim();
+  return `https://www.google.com/search?q=${encodeURIComponent(query)}`;
+}
+
+function getStoreLinks(product, source) {
+  const q = encodeURIComponent(product);
+  if (source === "W1") {
+    return [
+      { label: "Costco", url: `https://www.costco.com/CatalogSearch?dept=All&keyword=${q}` },
+      { label: "Sam's Club", url: `https://www.samsclub.com/s/${q}` }
+    ];
+  }
+
+  if (source === "R1") {
+    return [
+      { label: "Lowe's", url: `https://www.lowes.com/search?searchTerm=${q}` },
+      { label: "Home Depot", url: `https://www.homedepot.com/s/${q}` }
+    ];
+  }
+
+  return [
+    { label: "DoMyOwn", url: `https://www.domyown.com/catalogsearch/result/?q=${q}` },
+    { label: "Search web", url: buildProductSearchUrl(product, source) }
+  ];
 }
 
 function syncTurfSpecificFields() {
@@ -179,6 +217,9 @@ function renderResults(plan) {
     node.querySelector(".line-task").textContent = item.task;
     node.querySelector(".line-source").textContent = item.source;
     node.querySelector(".line-product").textContent = item.product;
+    const availability = node.querySelector(".line-availability");
+    const links = getStoreLinks(item.product, item.source);
+    availability.innerHTML = `<span class="availability-label">Available at</span>${links.map((entry) => `<a class="availability-link" href="${entry.url}" target="_blank" rel="noreferrer">${entry.label}</a>`).join("")}`;
     node.querySelector(".line-stats").innerHTML = [
       `Bags: ${item.bags}`,
       `Line cost: ${formatMoney(item.line_cost)}`,
@@ -219,7 +260,20 @@ planTierSelect.addEventListener("change", () => {
 
 zipInput.addEventListener("input", () => {
   syncRegionDisplay();
+  if (/^\d{5}$/.test(zipInput.value.trim())) {
+    scheduleSubmit();
+  }
 });
+
+sqFtInput.addEventListener("input", () => {
+  if (Number(sqFtInput.value) >= 500) {
+    scheduleSubmit();
+  }
+});
+
+rainInput.addEventListener("input", scheduleSubmit);
+tempInput.addEventListener("input", scheduleSubmit);
+windowInput.addEventListener("input", scheduleSubmit);
 
 form.addEventListener("submit", async (event) => {
   event.preventDefault();

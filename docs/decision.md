@@ -117,3 +117,12 @@ Format: Record significant decisions with rationale and alternatives.
 - Switch agronomic logic by ZIP immediately — rejected because no region-specific master data or guardrails are defined yet.
 
 **Consequences:** UI now reflects ZIP-derived region context and warns for outside-core ZIPs; future true region switching requires new plan data and guardrail contracts.
+
+**Date:** 2026-03-27  
+**Decision:** Treat key planner inputs as reactive controls with explicit recalculation feedback, and add in-app product-discovery guidance and search affordances.  
+**Context:** User reported uncertainty that changing inputs was affecting outcomes and requested clearer product-finding support in the app itself.  
+**Alternatives Considered:**
+- Keep manual-submit-only interaction — rejected because stale perception reduces trust in calculator behavior.
+- Link only generic retailer homepages — rejected because users need item-level search paths from each plan line.
+
+**Consequences:** Input changes now trigger visible update state and recalculation flow; result cards include direct product search links and the UI includes retailer guidance descriptions.
