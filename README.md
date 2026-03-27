@@ -4,6 +4,13 @@ GREENWARD CLT is a TypeScript runtime + browser UI for lawn planning in the Char
 
 It supports both Tall Fescue and Bermuda programs, applies agronomic guardrails, and estimates homeowner cost vs local service baseline.
 
+## Try It
+- Repository: [GREENWARD](https://github.com/coderkanasu/GREENWARD#)
+- Local quick run:
+  1. `npm install`
+  2. `npm run dev`
+  3. Open `http://127.0.0.1:8787`
+
 ## What You Get
 - Browser UI at `/` with guided inputs.
 - Runtime API at `/plan`.
@@ -136,6 +143,22 @@ Compatibility routes:
 - `public/` browser UI assets
 - `tests/` runtime tests
 - `docs/` requirements, decisions, tasks, and audit logs
+
+## How Keeli Helped Here
+Keeli provided structure, continuity, and traceability across architecture, implementation, and UX iterations.
+
+1. Task-driven execution:
+  - Work was broken into scoped task artifacts in `docs/tasks/`.
+  - Each change had objective, scope, acceptance criteria, and completion notes.
+2. Decision traceability:
+  - Architectural and policy decisions were captured in `docs/decision.md`.
+3. Audit transparency:
+  - `docs/ai_log.md` records timestamped execution events, transitions, and completion milestones.
+  - This makes it easy to review what changed, why it changed, and when it changed.
+4. Multi-persona delivery:
+  - @architect guided contracts and constraints.
+  - @developer implemented and validated runtime/UI behavior.
+  - @author refined documentation for usability and onboarding.
 
 ## Known Scope Boundary
 Current region handling is display-aware by ZIP, but agronomic calculations are still based on Charlotte Piedmont assumptions in v2.1.

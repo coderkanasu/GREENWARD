@@ -56,4 +56,5 @@
 2026-03-27T00:00:00Z | A-0051 | Opened task T-2026-03-27-store-link-availability-ui to replace generic product search with explicit retailer availability links.
 2026-03-27T00:00:00Z | A-0052 | Added explicit "Available at" retailer links per plan line item using source-based store mapping.
 2026-03-27T00:00:00Z | A-0053 | Task T-2026-03-27-store-link-availability-ui marked COMPLETED after build/test verification.
+2026-03-27T00:00:00Z | A-0054 | Updated README with Try It repository link and a Keeli contribution section highlighting ai_log-based execution traceability.
 
