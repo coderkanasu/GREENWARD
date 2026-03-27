@@ -1,0 +1,21 @@
+{
+  "functions": {
+    "api/*.ts": {
+      "runtime": "nodejs20.x"
+    }
+  },
+  "rewrites": [
+    {
+      "source": "/plan",
+      "destination": "/api/plan"
+    },
+    {
+      "source": "/health",
+      "destination": "/api/health"
+    },
+    {
+      "source": "/",
+      "destination": "/public/index.html"
+    }
+  ]
+}

@@ -92,6 +92,23 @@ Bermuda example (with green-up):
 
 This repo is set up for no-cost CI/CD with GitHub Actions + Render free tier.
 
+### Vercel (recommended free path)
+This project is now Vercel-compatible via serverless API routes in `api/` and static UI assets in `public/`.
+
+1. Import the repository into Vercel.
+2. Framework preset: `Other` (or auto-detected static/serverless setup).
+3. Build command: optional (Vercel can run without build for this setup), or use `npm run build` for validation.
+4. Deploy.
+
+Key files used by Vercel:
+- `api/health.ts`
+- `api/plan.ts`
+- `vercel.json`
+
+Compatibility routes:
+- `/api/plan` and `/api/health` (native Vercel serverless routes)
+- `/plan` and `/health` (rewritten to API routes)
+
 ### CI workflow (already configured)
 - File: `.github/workflows/ci.yml`
 - Runs on push and pull request:

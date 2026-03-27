@@ -1,10 +1,7 @@
 import { createServer } from "node:http";
 import { readFile } from "node:fs/promises";
 import { extname, join, normalize } from "node:path";
-import { PlannerService } from "./planner.js";
-import { validateOnboardingInput } from "./validators.js";
-
-const planner = new PlannerService();
+import { buildPlanFromPayload } from "./runtimeAdapter.js";
 
 const publicRoot = join(process.cwd(), "public");
 
@@ -57,24 +54,18 @@ async function serveStatic(
 const server = createServer((req, res) => {
   const url = new URL(req.url ?? "/", "http://127.0.0.1");
 
-  if ((req.method === "GET" || req.method === "HEAD") && url.pathname === "/health") {
+  if ((req.method === "GET" || req.method === "HEAD") && (url.pathname === "/health" || url.pathname === "/api/health")) {
     json(req, res, 200, { status: "ok" });
     return;
   }
 
-  if (req.method === "POST" && url.pathname === "/plan") {
+  if (req.method === "POST" && (url.pathname === "/plan" || url.pathname === "/api/plan")) {
     const chunks: Buffer[] = [];
     req.on("data", (chunk) => chunks.push(chunk));
     req.on("end", () => {
       try {
         const payload = JSON.parse(Buffer.concat(chunks).toString("utf8"));
-        const onboarding = validateOnboardingInput(payload);
-        const plan = planner.buildPlan(onboarding, {
-          rain_forecast: typeof payload.rain_forecast === "number" ? payload.rain_forecast : 0,
-          temp: typeof payload.temp === "number" ? payload.temp : 75,
-          forecast_window_hours: typeof payload.forecast_window_hours === "number" ? payload.forecast_window_hours : 24,
-          green_up: typeof payload.green_up === "number" ? payload.green_up : undefined
-        });
+        const plan = buildPlanFromPayload(payload);
         json(req, res, 200, plan);
       } catch (error) {
         const message = error instanceof Error ? error.message : "UNKNOWN_ERROR";

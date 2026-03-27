@@ -46,4 +46,7 @@
 2026-03-27T00:00:00Z | A-0041 | Opened task T-2026-03-27-readme-author-refresh for comprehensive README accuracy and usability rewrite.
 2026-03-27T00:00:00Z | A-0042 | Rewrote README for clearer onboarding, current month-aware UI behavior, accurate API examples, and deployment guidance.
 2026-03-27T00:00:00Z | A-0043 | Task T-2026-03-27-readme-author-refresh marked COMPLETED.
+2026-03-27T00:00:00Z | A-0044 | Opened task T-2026-03-27-greenward-vercel-adapter to make the project Vercel deployable/detectable.
+2026-03-27T00:00:00Z | A-0045 | Added Vercel-compatible serverless routes (`api/health`, `api/plan`) plus shared runtime adapter and route rewrites.
+2026-03-27T00:00:00Z | A-0046 | Verified build/tests and endpoint parity for `/api/*` and legacy routes; task T-2026-03-27-greenward-vercel-adapter marked COMPLETED.
 
