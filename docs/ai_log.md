@@ -43,4 +43,7 @@
 2026-03-27T00:00:00Z | A-0038 | Added GitHub Actions CI and CD workflows plus Render blueprint for no-cost deploy automation.
 2026-03-27T00:00:00Z | A-0039 | Updated README with step-by-step free CI/CD deployment instructions and verified build/test remain green.
 2026-03-27T00:00:00Z | A-0040 | Task T-2026-03-27-greenward-free-cicd-deploy marked COMPLETED.
+2026-03-27T00:00:00Z | A-0041 | Opened task T-2026-03-27-readme-author-refresh for comprehensive README accuracy and usability rewrite.
+2026-03-27T00:00:00Z | A-0042 | Rewrote README for clearer onboarding, current month-aware UI behavior, accurate API examples, and deployment guidance.
+2026-03-27T00:00:00Z | A-0043 | Task T-2026-03-27-readme-author-refresh marked COMPLETED.
 

@@ -1,100 +1,124 @@
-# GREENWARD CLT Runtime
+# GREENWARD CLT
 
-GREENWARD CLT is a lightweight TypeScript runtime and browser UI for Charlotte-area lawn planning across Tall Fescue and Bermuda turf.
+GREENWARD CLT is a TypeScript runtime + browser UI for lawn planning in the Charlotte Piedmont region.
 
-## Stack
-- TypeScript on Node 20
-- No frontend framework; static UI served by the runtime server
-- Tests via `tsx` and the Node test runner
+It supports both Tall Fescue and Bermuda programs, applies agronomic guardrails, and estimates homeowner cost vs local service baseline.
 
-## Install
+## What You Get
+- Browser UI at `/` with guided inputs.
+- Runtime API at `/plan`.
+- Month-aware results view:
+  - Default: show current-month actions first.
+  - Optional: toggle to full annual plan.
+- Turf-aware UI behavior:
+  - Bermuda-only green-up control appears only when turf is Bermuda.
+- Region-aware presentation:
+  - ZIP updates region display/disclaimer text.
+  - Core agronomic logic remains Charlotte-tuned in v2.1.
+
+## Tech Stack
+- Node 20 + TypeScript
+- No frontend framework (static UI served by Node runtime)
+- Test runner: `tsx` + Node test API
+
+## Quick Start
+
+### 1. Install
 ```bash
 npm install
 ```
 
-## Run In Dev Mode
+### 2. Run in dev mode
 ```bash
 npm run dev
 ```
 
-Open `http://127.0.0.1:8787`.
+Open: `http://127.0.0.1:8787`
 
-## Build And Run
+### 3. Build + run
 ```bash
 npm run build
 npm start
 ```
 
-## Test
+### 4. Run tests
 ```bash
 npm test
 ```
 
+## UI Behavior Notes
+- Plan auto-refreshes when turf type or plan tier changes.
+- `Basic 7` and `Plus 9` render different visit counts (for Tall Fescue: 7 vs 9).
+- When no action exists for the current month, the UI shows the next upcoming action.
+- Form values are persisted in local storage under key `greenward.v2.onboarding`.
+
 ## API
+
 ### `GET /health`
-Returns:
 ```json
 { "status": "ok" }
 ```
 
 ### `POST /plan`
-Example payload:
+
+Tall Fescue example:
 ```json
 {
   "zip_code": "28277",
   "sq_ft": 4500,
   "turf_type": "Tall_Fescue",
   "plan_tier": "Basic_7",
-  "rain_forecast": 0.8,
-  "temp": 95,
-  "forecast_window_hours": 24,
-  "green_up": 50
+  "rain_forecast": 0.2,
+  "temp": 82,
+  "forecast_window_hours": 24
 }
 ```
 
-## UI Flow
-1. Enter ZIP code, yard size, turf, and plan tier.
-2. Adjust rain, temperature, and green-up to simulate current conditions.
-3. Submit the form to generate the annual plan.
-4. Review visit count, annual cost, savings, guardrail directive, and visit-by-visit line items.
-
-## Notes
-- The browser UI persists onboarding fields in local storage using the key `greenward.v2.onboarding`.
-- Guardrail precedence is enforced server-side.
-- The same runtime powers API and UI responses.
+Bermuda example (with green-up):
+```json
+{
+  "zip_code": "28277",
+  "sq_ft": 6000,
+  "turf_type": "Bermuda",
+  "plan_tier": "Plus_9",
+  "rain_forecast": 0.0,
+  "temp": 86,
+  "forecast_window_hours": 24,
+  "green_up": 35
+}
+```
 
 ## Free CI/CD + Deployment
 
-You can run this with no-cost CI and automatic deployment using GitHub Actions + Render free web service.
+This repo is set up for no-cost CI/CD with GitHub Actions + Render free tier.
 
-### 1. CI (already configured)
-- Workflow file: `.github/workflows/ci.yml`
-- Runs on every push and pull request:
+### CI workflow (already configured)
+- File: `.github/workflows/ci.yml`
+- Runs on push and pull request:
   - `npm ci`
   - `npm run build`
   - `npm test`
 
-### 2. Create a free Render web service
-1. Push this repo to GitHub.
-2. In Render, create a new Web Service from the repo.
-3. Render can use `render.yaml` automatically, or set manually:
+### Free Render deploy
+1. Push repo to GitHub.
+2. In Render, create a Web Service from this repo.
+3. Use `render.yaml` or configure manually:
    - Build command: `npm ci && npm run build`
    - Start command: `npm start`
    - Health check path: `/health`
    - Plan: Free
 
-### 3. CD from GitHub Actions to Render (optional)
-- Workflow file: `.github/workflows/cd-render.yml`
-- Add a repo secret in GitHub:
-  - Name: `RENDER_DEPLOY_HOOK_URL`
-  - Value: your Render deploy hook URL
-- On every push to `main`, GitHub Actions triggers Render deploy.
+### CD on `main` (optional)
+- File: `.github/workflows/cd-render.yml`
+- Add GitHub Actions secret:
+  - `RENDER_DEPLOY_HOOK_URL` = Render deploy hook URL
+- Merge to `main` triggers deploy hook automatically.
 
-### 4. End-to-end flow
-1. Open PR -> CI validates build/tests.
-2. Merge to `main` -> CD workflow triggers Render deploy hook.
-3. Render builds and publishes automatically.
+## Project Layout
+- `src/` runtime modules and HTTP server
+- `public/` browser UI assets
+- `tests/` runtime tests
+- `docs/` requirements, decisions, tasks, and audit logs
 
-## Other no-cost options
-- Vercel hobby plan (requires adapting to serverless functions).
-- Cloudflare Pages + Workers (requires adapting runtime architecture).
+## Known Scope Boundary
+Current region handling is display-aware by ZIP, but agronomic calculations are still based on Charlotte Piedmont assumptions in v2.1.
