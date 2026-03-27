@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>GREENWARD CLT</title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <main class="shell">
+      <section class="hero">
+        <p id="region-eyebrow" class="eyebrow">Charlotte Piedmont lawn operations</p>
+        <h1>GREENWARD CLT</h1>
+        <p id="region-subtitle" class="subtitle">Warehouse-smart lawn planning for red clay, transition-zone turf, and HOA expectations.</p>
+        <p id="region-notice" class="region-notice"></p>
+      </section>
+
+      <section class="panel form-panel">
+        <form id="plan-form" class="plan-form">
+          <div class="grid two-up">
+            <label>
+              <span>ZIP code</span>
+              <input name="zip_code" inputmode="numeric" pattern="[0-9]{5}" required value="28277" />
+            </label>
+            <label>
+              <span>Square feet</span>
+              <input name="sq_ft" type="number" min="500" required value="4500" />
+            </label>
+          </div>
+
+          <div class="grid two-up">
+            <label>
+              <span>Turf type</span>
+              <select name="turf_type">
+                <option value="Tall_Fescue">Tall Fescue</option>
+                <option value="Bermuda">Bermuda</option>
+              </select>
+            </label>
+            <label>
+              <span>Plan tier</span>
+              <select name="plan_tier">
+                <option value="Basic_7">Basic 7</option>
+                <option value="Plus_9">Plus 9</option>
+              </select>
+            </label>
+          </div>
+
+          <div class="grid three-up">
+            <label>
+              <span>Rain forecast (in)</span>
+              <input name="rain_forecast" type="number" step="0.1" value="0.0" />
+            </label>
+            <label>
+              <span>Max temp (F)</span>
+              <input name="temp" type="number" value="80" />
+            </label>
+            <label>
+              <span>Forecast window (hrs)</span>
+              <input name="forecast_window_hours" type="number" value="24" />
+            </label>
+          </div>
+
+          <label id="green-up-row" class="green-up-row">
+            <span>Bermuda green-up (%)</span>
+            <input name="green_up" type="range" min="0" max="100" value="50" />
+            <output id="green-up-output">50%</output>
+          </label>
+
+          <div class="actions">
+            <button type="submit">Build Plan</button>
+            <p id="status" class="status">Ready.</p>
+          </div>
+        </form>
+      </section>
+
+      <section id="summary" class="summary grid three-up"></section>
+      <section id="guardrail" class="guardrail"></section>
+      <section id="result-controls" class="result-controls hidden">
+        <p id="result-context" class="result-context"></p>
+        <button id="toggle-view" type="button" class="ghost-button">Show full annual plan</button>
+      </section>
+      <section id="spotlight" class="results"></section>
+      <section id="results" class="results"></section>
+    </main>
+
+    <template id="line-item-template">
+      <article class="line-item panel">
+        <div class="line-item-head">
+          <div>
+            <p class="line-month"></p>
+            <h3 class="line-task"></h3>
+          </div>
+          <span class="line-source"></span>
+        </div>
+        <p class="line-product"></p>
+        <div class="line-stats"></div>
+        <p class="line-guardrail"></p>
+      </article>
+    </template>
+
+    <script type="module" src="/app.js"></script>
+  </body>
+</html>
